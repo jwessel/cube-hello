@@ -15,6 +15,10 @@ sh mk-cube-hello.sh
 # Register and install the new container
 cube-ctl add cube-hello.tar.bz2
 
+# At this point you will probably have to sign into the dom0 again
+# because it restarts cube-cmd-server, unless you ssh'ed into dom0
+cube-console dom0
+
 # Snapshot the container so as to restore it later
 /opt/overc-system-agent/overc container snapshot cube-hello dom0
 
