@@ -14,7 +14,13 @@ d=$dest
 
 cd $d || exit 1
 
-mkdir -p etc sbin tmp bin mnt dev/pts dev/shm proc sys usr/sbin usr/bin lib/systemd lib64/security root
+mkdir -p etc sbin tmp bin mnt dev/pts dev/shm proc sys usr/sbin usr/bin lib/systemd root
+LONG_BITS_FLAG=`file /bin/ls.coreutils | awk '{print $3}' | awk -F"-" '{print $1}'`
+if [ $LONG_BITS_FLAG -eq 64 ]; then
+    mkdir -p lib64/security
+else
+    mkdir -p lib/security
+fi
 
 systemdbins=`ls /bin/system*|cut -c 2-`
 
