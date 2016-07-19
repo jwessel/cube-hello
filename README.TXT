@@ -6,8 +6,13 @@
 
 cube-console dom0
 
-git clone https://github.com/WindRiver-OpenSourceLabs/cube-hello
-cd cube-hello
+# Get the container creation script below or
+### Optionally doing it this way instead:
+###   git clone https://github.com/WindRiver-OpenSourceLabs/cube-hello
+###   cd cube-hello
+
+wget https://raw.githubusercontent.com/WindRiver-OpenSourceLabs/cube-hello/master/mk-cube-hello.sh
+
 
 # Create the OS container as a tar.bz2 file
 sh mk-cube-hello.sh
