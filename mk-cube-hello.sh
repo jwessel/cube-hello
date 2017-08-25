@@ -24,7 +24,7 @@ fi
 
 systemdbins=`ls /bin/system*|cut -c 2-`
 
-bins="bin/cat bin/echo bin/cp bin/echo bin/false bin/ln bin/ls bin/mkdir bin/more bin/mount bin/mv bin/ping bin/rm bin/sh bin/sleep bin/touch bin/true bin/umount $systemdbins lib/systemd/systemd"
+bins="bin/cat bin/echo bin/cp bin/false bin/ln bin/ls bin/mkdir bin/more bin/mount bin/mv bin/ping bin/rm bin/sh bin/sleep bin/touch bin/true bin/umount $systemdbins lib/systemd/systemd"
 
 # Specific file system additions for enabling of cube-console
 pambins=`ls /lib*/security/*.so /lib*/libnss* |cut -c 2-`
@@ -49,7 +49,7 @@ session required        pam_unix.so
 EOF
 (
     cd /etc
-    tar chf - pam.d | (cd $d ; tar xf -)
+    tar --xattrs --xattrs-include=security.ima -chf - pam.d | (cd $d ; tar --xattrs --xattrs-include=security.ima -xf -)
 )
 # end cube-console additions
 
@@ -64,14 +64,14 @@ myldd(){
 }
 
 for b in $bins; do 
-    cp /$b $b
+    cp -aL /$b $b
     libs=$(myldd $b |grep "=>" |awk '{print $3}'; myldd $b |grep -v "=>" |grep -v vdso |awk '{print $1}')
     for lib in $libs; do
 	lib_noabs=${lib#/}
 	if [ ! -e $lib_noabs ] ; then
 	    (
 		cd /
-		tar chf - $lib_noabs | (cd $d ; tar xf -)
+		tar --xattrs --xattrs-include=security.ima -chf - $lib_noabs | (cd $d ; tar --xattrs --xattrs-include=security.ima -xf -)
 	    )
 	fi
     done
@@ -143,7 +143,7 @@ PS1='HelloWorld bash OS Container# '
 EOF
 
 cd $dest
-tar -cjf ../cube-hello.tar.bz2 .
+tar --xattrs --xattrs-include=security.ima -cjf ../cube-hello.tar.bz2 .
 
 if [ $? = 0 ] ; then
     echo Created cube-hello.tar.bz2
