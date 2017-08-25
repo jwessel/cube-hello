@@ -37,7 +37,7 @@ cube-console dom0
 ###   git clone https://github.com/WindRiver-OpenSourceLabs/cube-hello
 ###   cd cube-hello
 
-wget https://raw.githubusercontent.com/jwessel/cube-hello/master/mk-cube-iotapp.sh
+wget https://raw.githubusercontent.com/WindRiver-OpenSourceLabs/cube-hello/master/mk-cube-iotapp.sh
 
 
 # Create the OS container as a tar.bz2 file
