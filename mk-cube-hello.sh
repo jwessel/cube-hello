@@ -28,7 +28,7 @@ bins="bin/cat bin/echo bin/cp bin/false bin/ln bin/ls bin/mkdir bin/more bin/mou
 
 # Specific file system additions for enabling of cube-console
 pambins=`ls /lib*/security/*.so /lib*/libnss* |cut -c 2-`
-bins="$bins bin/bash bin/login sbin/agetty usr/bin/socat $pambins"
+bins="$bins bin/bash bin/login sbin/agetty usr/bin/socat usr/bin/script $pambins"
 echo root:x:0:  > etc/group
 echo root:x:0:0:root:/root:/bin/sh > etc/passwd
 echo root::16966:0:99999:7::: > etc/shadow
