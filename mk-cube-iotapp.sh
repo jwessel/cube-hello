@@ -57,11 +57,17 @@ EOF
 ln -s /bin/systemctl sbin/halt
 
 myldd(){
-    if [ "${1%.so}" != "$1" -o "${1/.so./}" != "$1" ] ; then
+    local f
+    f="$1"
+    if [ "${f#/}" = "$f" ] ; then
+	f="./$f"
+    fi
+    if [ "${f%.so}" != "$f" -o "${f/.so./}" != "$f" ] ; then
 	LD_TRACE_LOADED_OBJECTS=1 LD_PRELOAD=$1 /bin/echo
     else
-	LD_TRACE_LOADED_OBJECTS=1 $1 |grep -v Sementation
+	LD_TRACE_LOADED_OBJECTS=1 $f |grep -v Sementation
     fi
+	echo $f
 }
 
 for b in $bins; do 
